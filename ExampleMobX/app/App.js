@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, Text, TextInput, TouchableHighlight, StyleSheet, ScrollView } from 'react-native'
 import {observer} from 'mobx-react/native'
 import NewItem from './NewItem'
 
@@ -44,20 +44,22 @@ class App extends Component {
     return (
       <View style={{flex:1}}>
         <View style={styles.heading}>
-          <Text style={styles.headingText}>My List App</Text>
+          <Text style={styles.headingText}>My List App with MobX</Text>
         </View>
         {!list.length ? <NoList /> : null}
         <View style={{flex:1}}>
-          {list.map((l, i) => {
-            return <View key={i} style={styles.itemContainer}>
-              <Text
-                style={styles.item}
-                onPress={this.addItemToList.bind(this, l)}>{l.name.toUpperCase()}</Text>
-              <Text
-                style={styles.deleteItem}
-                onPress={this.removeListItem.bind(this, l)}>Remove</Text>
-            </View>
-          })}
+          <ScrollView>
+            {list.map((l, i) => {
+              return <View key={i} style={styles.itemContainer}>
+                <Text
+                  style={styles.item}
+                  onPress={this.addItemToList.bind(this, l)}>{l.name.toUpperCase()}</Text>
+                <Text
+                  style={styles.deleteItem}
+                  onPress={this.removeListItem.bind(this, l)}>Remove</Text>
+              </View>
+            })}
+          </ScrollView>
         </View>
         <TouchableHighlight
           underlayColor='transparent'
